@@ -1,10 +1,10 @@
 // imports of the comonents that are used in this component
-import ExpenseItem from "./components/ExpenseItem";
+import Expenses from "./components/Expenses";
 
 // root component
 function App() {
   // array
-  const expences = [
+  const expenses = [
     {
       id: "e1",
       title: "Toilet Paper",
@@ -37,26 +37,7 @@ function App() {
       <h2>Hello! Let's get started!</h2>
       <p>I know that I can do it. HURA!</p>
       {/* Upper-case -- custom components */}
-      <ExpenseItem
-        title={expences[0].title}
-        amount={expences[0].amount}
-        date={expences[0].date}
-      ></ExpenseItem>
-      <ExpenseItem
-        title={expences[1].title}
-        amount={expences[1].amount}
-        date={expences[1].date}
-      ></ExpenseItem>
-      <ExpenseItem
-        title={expences[2].title}
-        amount={expences[2].amount}
-        date={expences[2].date}
-      ></ExpenseItem>
-      <ExpenseItem
-        title={expences[3].title}
-        amount={expences[3].amount}
-        date={expences[3].date}
-      ></ExpenseItem>
+      <Expenses items={expenses}/>
     </div>
   );
 }
