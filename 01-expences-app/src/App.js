@@ -1,5 +1,6 @@
 // imports of the comonents that are used in this component
 import Header from "./components/Header";
+import NewExpense from "./components/NewExpense/NewExpense";
 import Expenses from "./components/Expenses";
 
 // root component
@@ -36,6 +37,8 @@ function App() {
     // low-case --
     <>
       <Header />
+      <NewExpense />
+
       {/* Upper-case -- custom components */}
       <Expenses items={expenses}/>
     </>
