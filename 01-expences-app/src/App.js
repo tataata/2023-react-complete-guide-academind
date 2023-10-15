@@ -32,12 +32,17 @@ function App() {
     },
   ];
 
+  const addExpenseHandler = expense => {
+    console.log('In Appjs');
+    console.log(expense);
+  }
+
   return (
     // this is JSX
     // low-case --
     <>
       <Header />
-      <NewExpense />
+      <NewExpense onAddExpense={addExpenseHandler} />
 
       {/* Upper-case -- custom components */}
       <Expenses items={expenses}/>
