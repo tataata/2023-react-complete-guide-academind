@@ -3,32 +3,51 @@ import { useRef, useState } from "react";
 const SimpleInput = (props) => {
   // Two approaches to see every keystroke login (input value) on submit
 
-  // 1. Ref might be better if I am interested in the value once 
+  // 1. Ref might be better if I am interested in the value once
   const nameInputRef = useRef();
 
-  // 2. State might be suitable for instant validation 
+  // 2. State might be suitable for instant validation
   //    + if I want to reset the input value after the submit
   const [enteredName, setEnteredName] = useState("");
+
+  // useState for providing feedback on validation
+  const [enteredNameIsValid, setEnteredNameIsValid] = useState(true);
+
   const nameInputChangeHandler = (event) => {
     setEnteredName(event.target.value);
   };
 
   const formSubmissionHandler = (event) => {
-    // Ref for tracking every keystroke
-    const enteredValue = nameInputRef.current.value;
-    console.log(enteredValue + ", hello!");
+    event.preventDefault();
+
+    // Validation conditions
+    // Check if the input is empty or not
+    if (enteredName.trim() == "") {
+      setEnteredNameIsValid(false);
+      // cancel the function execution as there is nothing to operate with: the input value is empty
+      return;
+    }
+    setEnteredNameIsValid(true);
 
     // State for tracking every keystroke
-    event.preventDefault();
-    console.log(enteredName + ", hello!");
+    console.log(enteredName + ", hello! <-- useState");
+
+    // Ref for tracking every keystroke
+    const enteredValue = nameInputRef.current.value;
+    console.log(enteredValue + ", hello! <-- useRef");
 
     // Reset the value in the input on submit
     setEnteredName("");
   };
 
+  // Change the css classes if input is valid or not
+  const nameInputClasses = enteredNameIsValid
+    ? "form-control"
+    : "form-control invalid";
+
   return (
     <form onSubmit={formSubmissionHandler}>
-      <div className="form-control">
+      <div className={nameInputClasses}>
         <label htmlFor="name">Your name</label>
         <input
           ref={nameInputRef}
@@ -37,6 +56,9 @@ const SimpleInput = (props) => {
           onChange={nameInputChangeHandler}
           value={enteredName}
         />
+        {!enteredNameIsValid && (
+          <p className="error-text">Name field can't be empty</p>
+        )}
       </div>
       <div className="form-actions">
         <button>Submit</button>
