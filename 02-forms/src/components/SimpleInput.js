@@ -11,7 +11,9 @@ const SimpleInput = (props) => {
   const [enteredName, setEnteredName] = useState("");
 
   // useState for providing feedback on validation
-  const [enteredNameIsValid, setEnteredNameIsValid] = useState(true);
+  const [enteredNameIsValid, setEnteredNameIsValid] = useState(false);
+  // add touched for providing feedback only affter field was edited
+  const [enteredNameTouched, setEnteredNameTouched] = useState(false);
 
   const nameInputChangeHandler = (event) => {
     setEnteredName(event.target.value);
@@ -20,11 +22,14 @@ const SimpleInput = (props) => {
   const formSubmissionHandler = (event) => {
     event.preventDefault();
 
+    setEnteredNameTouched(true);
+
     // Validation conditions
     // Check if the input is empty or not
     if (enteredName.trim() == "") {
       setEnteredNameIsValid(false);
-      // cancel the function execution as there is nothing to operate with: the input value is empty
+      // cancel the function execution as there is 
+      // nothing to operate with: the input value is empty
       return;
     }
     setEnteredNameIsValid(true);
@@ -40,10 +45,12 @@ const SimpleInput = (props) => {
     setEnteredName("");
   };
 
+  const nameInputIsInvalid = !enteredNameIsValid && enteredNameTouched;
+
   // Change the css classes if input is valid or not
-  const nameInputClasses = enteredNameIsValid
-    ? "form-control"
-    : "form-control invalid";
+  const nameInputClasses = nameInputIsInvalid
+    ? "form-control invalid"
+    : "form-control";
 
   return (
     <form onSubmit={formSubmissionHandler}>
@@ -56,7 +63,7 @@ const SimpleInput = (props) => {
           onChange={nameInputChangeHandler}
           value={enteredName}
         />
-        {!enteredNameIsValid && (
+        {nameInputIsInvalid && (
           <p className="error-text">Name field can't be empty</p>
         )}
       </div>
