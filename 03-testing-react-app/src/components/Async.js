@@ -4,6 +4,7 @@ const Async = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
+    // for testing fetch we want to use dummy function while running tests
     fetch('https://jsonplaceholder.typicode.com/posts')
       .then((response) => response.json())
       .then((data) => {
