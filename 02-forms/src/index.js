@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client';
 
-import './index.css'; // relative path
-import App from './App'; // App is a component
+import './index.css';
+import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<App />);
